@@ -165,7 +165,7 @@ void SysTick_Handler(void)//定时1ms
 	//add lbs
 	sysIntCnt++;//心跳
 	
-	if (host2Scan == 1) {//等待扫码超时
+	if (host2Scan == 1) {//开始扫码标志
 		scanWaitTimeCnt++;
 		if (scanWaitTimeCnt % SCANTIMEOUT_TICK == 0) {
 			scanWaitTimeCnt = 0;

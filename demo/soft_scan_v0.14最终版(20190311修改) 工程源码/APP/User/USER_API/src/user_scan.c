@@ -26,13 +26,28 @@ void scanCamera(void)
 	static uint32_t tick;
 	
 	if (host2Scan == 1) {
-		if(UART5_RCV_S.SuccessFlag==1)
+		if (UART5_RCV_S.SuccessFlag==1)
 		{
 			UART5_RCV_S.SuccessFlag = 0;	
 			host2Scan = 0;
 			scanCodeSend();
 			return ;
 		}
+		if (UART4_RCV_S.SuccessFlag==1)
+		{
+			UART4_RCV_S.SuccessFlag = 0;	
+			host2Scan = 0;
+			scanCodeSend();
+			return ;
+		}	
+		if (UART1_RCV_S.SuccessFlag==1)
+		{
+			UART1_RCV_S.SuccessFlag = 0;
+			host2Scan = 0;
+			scanCodeSend();
+			return ;
+		}
+		
 		if (scanWaitTimeout == 1) {
 			host2Scan = 0;
 			scanCodeTimeOut();	
@@ -41,60 +56,9 @@ void scanCamera(void)
 	}
 	else {
 		UART5_RCV_S.SuccessFlag = 0;
+		UART4_RCV_S.SuccessFlag = 0;
+		UART1_RCV_S.SuccessFlag = 0;
 	}
-	
-	#if 0
-	if(UART4_RCV_S.SuccessFlag==1)
-	{
-		LED_OFF();
-		UART4_RCV_S.SuccessFlag = 0;	
-		USART2_Send((char *)UART4_RCV_S.buff,UART4_RCV_S.cnt);
-		if(payMentFlag==1)//支付标志位置一。
-		{
-			payMentFlag=2;
-			PaymentPage();	
-		}
-	}
-	if(UART5_RCV_S.SuccessFlag==1)
-	{
-		LED_OFF();
-		UART5_RCV_S.SuccessFlag = 0;	
-		//可以添加用户自己协议
-		USART2_Send((char *)UART5_RCV_S.buff,UART5_RCV_S.cnt);
-		if(payMentFlag==1)//支付标志位置一。
-		{
-			payMentFlag=2;
-			PaymentPage();		
-		}
-	}
-	if(UART1_RCV_S.SuccessFlag)
-	{
-		LED_OFF();
-		UART1_RCV_S.SuccessFlag = 0;	
-		//可以添加用户自己协议
-		USART2_Send((char *)UART1_RCV_S.buff,UART1_RCV_S.cnt);
-		if(payMentFlag==1)//支付标志位置一。
-		{
-			payMentFlag=2;
-			PaymentPage();		
-		}	
-	}
-	
-	if(payMentFlag==2)
-	{
-		 if(SysTick_GetLapse(tick)>3000)
-		 {
-				FirstPage();
-				tick = SysTick_GetCurrent();				
-				payMentFlag = 0;
-			
-		 }
-	}
-	else
-	{
-		tick = SysTick_GetCurrent();
-	}
-	#endif
 }
 
 

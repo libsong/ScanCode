@@ -42,7 +42,7 @@
 *.D
 *.CRF
 *.ELF
-*.HEX
+#*.HEX
 *.H86
 *.LIB
 *.OBJ

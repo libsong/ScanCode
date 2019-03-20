@@ -479,6 +479,7 @@ void scanCodeTimeOut (void)
 	dataPack(4,dataTimeOut,27,pack);
 	
 	USART2_Send((char *)pack,27+5);
+	VoicePlayBack((char*)"µÈ´ýÉ¨Âë³¬Ê±",12);
 }
 
 void doWeTask(void)
