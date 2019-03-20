@@ -1,0 +1,111 @@
+[Version]
+Signature="$Chicago$"
+CESignature="$Windows CE$"
+Provider=%CompanyName%
+
+; Strings can be customized (AppName/CompanyName)
+
+[CEStrings]
+InstallDir=%CE2%
+AppName="CP210x USB to UART Bridge Driver"
+
+[Strings]
+CompanyName="Silicon Laboratories"
+
+[SourceDisksNames.ARM]
+2=,"ARMV4I Driver", , .\ARMV4I
+
+[SourceDisksNames.x86]
+2=,"x86 Driver", , .\x86
+
+[SourceDisksNames.SH4]
+2=,"SH4 Driver", , .\SH4
+
+[SourceDisksNames.MIPSII]
+2=,"MIPSII Driver", , .\MIPSII
+
+[SourceDisksNames.MIPSII_FP]
+2=,"MIPSII_FP Driver", , .\MIPSII_FP
+
+[SourceDisksNames.MIPSIV]
+2=,"MIPSIV Driver", , .\MIPSIV
+
+[SourceDisksNames.MIPSIV_FP]
+2=,"MIPSIV_FP Driver", , .\MIPSIV_FP
+
+[SourceDisksFiles]
+CP210xVCP.dll=2
+
+[Files]
+"CP210xVCP.dll",CP210xVCP.dll
+
+[DestinationDirs]
+Files=0,%InstallDir%
+
+[DefaultInstall]
+AddReg=DriverReg, ExtModemReg
+
+[DefaultInstall]
+CopyFiles=Files
+
+[DriverReg]
+
+; Default CP210x (10C4/EA60,EA70) entries - remove if customizing below
+
+HKLM, \Drivers\USB\LoadClients\4292_60000\Default\Default\CP210xVCP, Dll, 0x00000000, "CP210xVCP.Dll"
+HKLM, \Drivers\USB\LoadClients\4292_60000\Default\Default\CP210xVCP, Prefix, 0x00000000, "COM"
+HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port0\4292_60000, Dll, 0x00000000, "CP210xVCP.Dll"
+HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port0\4292_60000, Prefix, 0x00000000, "COM"
+HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port0\4292_60000, Index, 0x00010001, 0x00000009
+
+HKLM, \Drivers\USB\LoadClients\4292_60016\Default\Default\CP210xVCP, Dll, 0x00000000, "CP210xVCP.Dll"
+HKLM, \Drivers\USB\LoadClients\4292_60016\Default\Default\CP210xVCP, Prefix, 0x00000000, "COM"
+HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port0\4292_60016, Dll, 0x00000000, "CP210xVCP.Dll"
+HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port0\4292_60016, Prefix, 0x00000000, "COM"
+HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port0\4292_60016, Index, 0x00010001, 0x00000007
+HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port1\4292_60016, Dll, 0x00000000, "CP210xVCP.Dll"
+HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port1\4292_60016, Prefix, 0x00000000, "COM"
+HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port1\4292_60016, Index, 0x00010001, 0x00000008
+
+; DriverReg Customization
+;
+; To customize this driver to a specific VID/PID uncomment the registry
+; entries below and modify:
+;  vvvvvv = VID in decimal
+;  pppppp = PID in decimal
+;
+; Fill out the "Index"= below to fix the iiiiiiii to a COM port 1 to 9, this
+; will only allow one CP210x device to enumerate on the CE system specifically
+; on that COM port
+
+;HKLM, \Drivers\USB\LoadClients\vvvvvv_pppppp \Default\Default\CP210xVCP, Dll, 0x00000000, "CP210xVCP.Dll"
+;HKLM, \Drivers\USB\LoadClients\vvvvvv_pppppp \Default\Default\CP210xVCP, Prefix, 0x00000000, "COM"
+;HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port0\vvvvvv_pppppp , Dll, 0x00000000, "CP210xVCP.Dll"
+;HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port0\vvvvvv_pppppp , Prefix, 0x00000000, "COM"
+;HKLM, \Drivers\USB\ClientDrivers\CP210xVCP\Port0\vvvvvv_pppppp , Index, 0x00010001, iiiiiiii 
+    
+[ExtModemReg]
+
+; Default COM7,8,9 - remove if customizing
+
+HKLM, \ExtModems\CP210x, Port, 0x00000000, "COM9:"
+HKLM, \ExtModems\CP210x, DeviceType, 0x00010001, 0x00000001
+HKLM, \ExtModems\CP210x, FriendlyName, 0x00000000, "CP210x USB to UART Bridge on COM9:"
+
+HKLM, \ExtModems\CP210xECI, Port, 0x00000000, "COM7:"
+HKLM, \ExtModems\CP210xECI, DeviceType, 0x00010001, 0x00000001
+HKLM, \ExtModems\CP210xECI, FriendlyName, 0x00000000, "Enahnced CP2105 Interface USB to UART Bridge on COM7:"
+
+HKLM, \ExtModems\CP210xSCI, Port, 0x00000000, "COM8:"
+HKLM, \ExtModems\CP210xSCI, DeviceType, 0x00010001, 0x00000001
+HKLM, \ExtModems\CP210xSCI, FriendlyName, 0x00000000, "Standard CP2105 Interface USB to UART Bridge on COM8:"
+
+; ExtModemReg Customization
+;
+; To customize this driver to have a specific COM port exposed set the ddddddd to
+; a short device description below, and set the iiiiiiii to what was specified above
+; as an index. The FriendlyName string can also be customized to show up as desired
+
+;HKLM, \ExtModems\dddddddd, Port, 0x00000000, "COMiiiiiiii:"
+;HKLM, \ExtModems\dddddddd, DeviceType, 0x00010001, 0x00000001
+;HKLM, \ExtModems\dddddddd, FriendlyName, 0x00000000, "My Device Name on COMiiiiiiii:"

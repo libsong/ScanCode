@@ -1,0 +1,66 @@
+
+; CP2101/2/3/4
+[HKEY_LOCAL_MACHINE\Drivers\USB\LoadClients\4292_60000\Default\Default\CP210xVCP]
+   "Dll"="CP210xVCP.DLL"
+   "Prefix"="COM"
+
+[HKEY_LOCAL_MACHINE\Drivers\USB\ClientDrivers\CP210xVCP\Port0\4292_60000]
+   "Dll"="CP210xVCP.DLL"
+   "Prefix"="COM"
+
+; CP2105
+[HKEY_LOCAL_MACHINE\Drivers\USB\LoadClients\4292_60016\Default\Default\CP210xVCP]
+   "Dll"="CP210xVCP.DLL"
+   "Prefix"="COM"
+
+[HKEY_LOCAL_MACHINE\Drivers\USB\ClientDrivers\CP210xVCP\Port0\4292_60016]
+   "Dll"="CP210xVCP.DLL"
+   "Prefix"="COM"
+
+[HKEY_LOCAL_MACHINE\Drivers\USB\ClientDrivers\CP210xVCP\Port1\4292_60016]
+   "Dll"="CP210xVCP.DLL"
+   "Prefix"="COM"
+
+; Include the following key to have the device show up as a null modem
+;
+;[HKEY_LOCAL_MACHINE\Drivers\USB\ClientDrivers\CP210xVCP\Port0\4292_60000\Unimodem]
+;   "Tsp"="unimodem.dll"
+;   "DeviceType"=dword:0
+;   "FriendlyName"="CP210x USB to UART Bridge"
+
+; Include the following key to have the device show up as a Hayes compatible modem
+;
+[HKEY_LOCAL_MACHINE\Drivers\USB\ClientDrivers\CP210xVCP\Port0\4292_60000\UnimodemHayes]
+   "Tsp"="unimodem.dll"
+   "DeviceType"=dword:1
+   "FriendlyName"="CP210x USB to UART Bridge"
+
+[HKEY_LOCAL_MACHINE\Drivers\USB\ClientDrivers\CP210xVCP\Port0\4292_60016\UnimodemHayes]
+   "Tsp"="unimodem.dll"
+   "DeviceType"=dword:1
+   "FriendlyName"="Dual CP210x USB to UART Bridge: Enhanced COM Port"
+
+[HKEY_LOCAL_MACHINE\Drivers\USB\ClientDrivers\CP210xVCP\Port1\4292_60016\UnimodemHayes]
+   "Tsp"="unimodem.dll"
+   "DeviceType"=dword:1
+   "FriendlyName"="Dual CP210x USB to UART Bridge: Standard COM Port"
+
+; Customization
+;
+; To customize this driver to a specific VID/PID uncomment the registry
+; entries below and modify:
+;  vvvvvv = VID in decimal
+;  pppppp = PID in decimal
+;
+; Fill out the "Index"= below to fix the device to a COM port 1 to 9, this
+; will only allow one CP210x device to enumerate on the CE system specifically
+; on that COM port
+
+;[HKEY_LOCAL_MACHINE\Drivers\USB\LoadClients\vvvvvv_pppppp\Default\Default\CP210xVCP]
+;   "Dll"="CP210xVCP.DLL"
+;   "Prefix"="COM"
+
+;[HKEY_LOCAL_MACHINE\Drivers\USB\ClientDrivers\CP210xVCP\Port0\vvvvvv_pppppp]
+;   "Dll"="CP210xVCP.DLL"
+;   "Prefix"="COM"
+;   "Index"=dword:9

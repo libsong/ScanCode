@@ -1,0 +1,129 @@
+
+WinCE 5.0 VCP Driver  2.1
+Copyright (C) 2010 Silicon Laboratories, Inc.
+
+
+Hardware Support
+----------------
+
+- CP210x
+
+
+Platform Support
+----------------
+
+- ARMV4I
+- MIPSII
+- MIPSII_FP
+- MIPSIV
+- MIPSIV_FP
+- SH4
+- x86
+
+
+Files Included
+--------------
+
+- CP210xVCP.DLL			(Driver DLL) 
+- CP210xVCP.REG			(Registry Entry for VCP Driver)
+
+- CP210xWinCETest.exe		(Test app - Loopback)
+- CP210xWinCETest Source Code
+
+- CP210xRuntime.DLL			(Runtime DLL for GPIO Access)
+- CP210xRuntimeDLL.h		(Header file for Runtime DLL)
+
+- CP210xVCP_CE_Install.<platform>.CAB	(CAB Driver Installer)
+
+- buildcabs.bat			(Batch file to build a CAB installer for each platform)
+- CP210xVCP_CE_Install.INF		(INF file to build CAB installation)
+
+Release Dates
+-------------
+
+	VCP for WinCE 2.1 - November 23, 2010
+
+
+Installation Instructions
+-------------------------
+
+1. If your device supports CAB installation then copy the CP210xVCP_CE_Install.<platform>.CAB file which
+	matches your platform to the device. Run it, and install into the Windows directory when
+	prompted. If your device does not support CAB installation copy the CP210xVCP.DLL driver into
+	the \Windows directory.
+
+2. Plug in the CP210x Device with VID 10C4 and PID EA60. If your CP210x needs customization follow
+	the instructions in the CP210xVCP.REG file to add your device entry to the registry. Then
+	to customze the device use the CP210xSetIDs.exe application located in AN144 and its software
+	package (AN144SW) available here: 
+
+	http://www.silabs.com/tgwWebApp/public/web_content/products/Microcontrollers/en/mcu_applications_appnotes.htm
+
+	There is also a sample INF file for CAB file installation. To customize this install follow
+	the instructions in the same CP210xVCP_CE_Install.INF file.
+ 
+3. When the dialog pops up saying "Unidentified USB Device" enter CP210xVCP for
+	the driver name. The dialog should close when OK is pressed, and the LED on 
+	the CP210x development board should be lit (If the dialog doesn't pop up, but 
+	the LED on the CP210x development board is on, then it automatically found the 
+	device).
+
+	If your device is customized this will not work and you will need to either
+	manually enter customized registry entries from the CP210xVCP.REG file, or you will
+	need to customize the INF to build a CAB installer (which will add the regsitry
+	entries automatically).
+
+4. The included test application can now be run (CP210xSerialTest.exe) using a two COM ports, one
+	which should be a CP210x, or a single CP210x in loopback mode (this is done by spcifying the
+	same COM port as the Master and the Slave. To put the device in a loopback state, disconnect
+	the two jumpers for TXD and RXD, and reconnect one jumper joining the TXD and RXD pins
+	closest to the USB port - see Figure 1.
+
+
+
+			  Figure 1:
+
+	     Serial			     Serial
+
+	T R D   D D C R			T R D   D D C R
+	X X T R C S T T			X X T R C S T T
+	D D R I D R S S 		D D R I D R S S 
+	. . . . . . . .			._. . . . . . .
+    J2	| | | | | | | |		    J2	    | | | | | |
+	. . . . . . . .			._. . . . . . .
+
+	      USB			      USB
+
+	Normal Operation		Loopback Mode
+
+
+
+Known Issues and Limitations
+----------------------------
+None
+
+
+Release History
+---------------
+
+Release 2.1
+-----------
+- Added support for CP2104/5
+- Changed the way modem status is polled, before it used a mmtimer library which would
+cause the device to lag for 10 seconds upon device removal and unload of the driver
+
+Release 2.0a
+------------
+- Removed the BuiltIn key, it was causing a 10 second boot time lag on certain systems. This
+key was removed since the driver doesn't need to be loaded at boot, only on device insertion
+
+Release 2.0
+-----------
+- Corrected default installation behavior
+- Corrected functionality to get/set/wait on COMM events
+- Added support to read/write GPIO latch values with the CP210xRuntime.DLL
+
+Release 1.0
+-----------
+- Initial Release
+
